@@ -1,0 +1,23 @@
+/*Degradado de fondo para el body*/
+body {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    font-family: 'Segoe UI', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+}
+
+/*Estilo para las tarjetas*/
+
+.card {
+    border-radius: 10px;
+    border: none;
+}
+
+/*Botones con transición suave*/
+button {
+    transition: transform 0.2 ease;
+}
+
+button:hover {
+    transform: translateY(-2px);
+}

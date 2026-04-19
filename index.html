@@ -14,6 +14,55 @@
 </head>
 
 <body>
+    <!--Navbar-->
+    <nav class="navbar navbar-dark bg-dark">
+        <div class="container-fluid">
+            <span class="navbar-brand mb-0 h1"> 📝 TaskMaster - Gestor de Tareas
+            </span>
+        </div>
+    </nav>
+    <!--Contenedor principal-->
+    <div class="container-mt-4">
+        <!--Sección de agregar nueva tarea-->
+        <div class="card shadow-sm mb-4">
+            <div class="card-body">
+                <div class="row g-2">
+                    <!--Input de texto-->
+                    <div class="col-md-9">
+                        <input type="text" id="inputNuevaTarea" class="form-control"
+                            placeholder="Escribe una nueva tarea...">
+
+                    </div>
+                    <div class="col-md-3">
+                        <button id="btnAgregar" class="btn btn-primary w-100"> ➕ Agregar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Sección de estadísticas y filtros -->
+        <div class="d-flex justif-content-between align-items-center mb-3">
+            <!-- Contadr de tareas-->
+            <div>
+                <h5 class="mb-0">
+                    📊 <span id="contadorPendientes">0</span> pendientes de <span id="contadorTotales">0</span> totaless
+                </h5>
+            </div>
+        </div>
+        <!--Botones de filtro-->
+        <div class="btn-group" role="group">
+            <button type="button" class="btn btn-outline-secondary btn-sm" id="filtroTodas">Todas</button>
+            <button type="button" class="btn btn-outline-secondary btn-sm" id="filtroPendientes">Pendientes</button>
+            <button type="button" class="btn btn-outline-secondary btn-sm" id="filtroCompletadas">Completadas</button>
+        </div>
+        <!--Lista de tareas-->
+        <div id="contenedorTareas">
+            <!--JavaScript insertará dinámicamente las tareas aquí-->
+            <p class="text-center text-muted mt-5">
+                No hay tareas todavía. ¡Agrega tu primera tarea arriba! 🚀
+            </p>
+        </div>
+    </div>
     <!-- Bootstrap JS (para componentes interactivos) -->
     <script src="/js/bootstrap.bundle.min.js"></script>
     <script src="app.js"></script>
