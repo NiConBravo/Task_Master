@@ -35,6 +35,7 @@ function agregarTarea(textoTarea) {
     // Agregar la nueva tarea al array
     tareas.push(nuevaTarea);
 
+    guardarTareas();
     // Renderizar las tareas en pantalla
     renderizarTareas();
 }
@@ -45,6 +46,9 @@ function agregarTarea(textoTarea) {
 
 // Esperar a que el DOM esté completamente cargado
 document.addEventListener('DOMContentLoaded', function () {
+
+    // Cargar tareas guardadas al iniciar
+    cargarTareas();
 
     // Obtener referencias a los elementos HTML
     const inputNuevaTarea = document.getElementById('inputNuevaTarea');
@@ -150,4 +154,92 @@ function actualizarContador() {
 
     document.getElementById('contadorTotales').textContent = totalTareas;
     document.getElementById('contadorPendientes').textContent = tareasPendientes;
+}
+
+/**
+ * Guarda el array completo de tareas en localStorage
+ * Convierte el array JavaScript a un string JSON
+ */
+
+function guardarTareas() {
+    // Convertir el array de objetos a un string JSON
+    const tareasJSON = JSON.stringify(tareas);
+
+    // Guardar en localStorage con la clave 'taskmaster_tareas'
+    localStorage.setItem('taskmaster_tareas', tareasJSON);
+    console.log('💾 Tareas guardadas en localStorage');
+}
+
+/**
+ * Carga las tareas guardadas en localStorage al iniciar la app
+ * Convierte el string JSON de vuelta a un array JavaScript
+ */
+
+function cargarTareas() {
+    // Intentar leer las tareas guardadas
+    const tareasGuardadas = localStorage.getItem('taskmaster_tareas');
+
+    //Verificar si hay algo guardado
+    if (tareasGuardadas) {
+        // Convertir el string JSON de vuelta a un array JavaScript
+        tareas = JSON.parse(tareasGuardadas);
+        console.log('📥 Tareas cargadas desde localStorage:', tareas);
+    } else {
+        // Si no hay nada guardado (primera vez usando la app)
+        tareas = [];
+        console.log('ℹ️ No hay tareas guardadas. Iniciando con array vacío.');
+    }
+    // Renderizar las tareas cargadas
+    renderizarTareas();
+}
+
+/**
+ * Cambia el estado de una tarea entre completada y pendiente
+ * @param {number} id - El ID de la tarea a modificar
+ */
+
+function toggleCompletada(id) {
+    // Buscar la tarea en el array por su ID
+    const tarea = tareas.find(t => t.id === id);
+
+    // Si no se encuentra (caso raro), salir
+    if (!tarea) {
+        console.error('❌ No se encontró tarea con ID:', id);
+        return;
+    }
+    // Invertir el estado (true → false, false → true)
+    tarea.completada = !tarea.completada;
+
+    console.log(`✅ Tarea ${id} ahora está: ${tarea.completada ? 'COMPLETADA' : 'PENDIENTE'}`);
+
+    // Guardar en localStorage y re-renderizar
+    guardarTareas();
+    renderizarTareas();
+}
+
+/**
+ * Elimina una tarea del array y de localStorage
+ * @param {number} id - El ID de la tarea a eliminar
+ */
+
+function eliinarTarea(id) {
+    // Buscar la tarea para mostrar su texto en la confirmación
+    const tarea = tareas.find(t => t.id === id);
+
+    // Pedir confirmación al usuario
+    const confirmar = confirm(`¿Estás seguro de eliminar: "${tarea.texto}"?`);
+
+    // Si el usuario cancela, salir sin hacer nada
+    if (!confirmar) {
+        return;
+    }
+
+    // Filtrar el array para remover la tarea con ese ID
+    tareas = tareas.filter(t => t.id !== id);
+
+    console.log('🗑️ Tarea eliminada. Tareas restantes:', tareas.length);
+
+    // Guardar en localStorage y re-renderizar
+    guardarTareas();
+    renderizarTareas();
 }
