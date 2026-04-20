@@ -69,6 +69,30 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
+    // Event listeners para filtros
+
+    const btnFiltroTodas = document.getElementById('filtroTodas');
+    const btnFiltroPendientes = document.getElementById('filtroPendientes');
+    const btnFiltroCompletadas = document.getElementById('filtroCompletadas');
+
+    btnFiltroTodas.addEventListener('click', function () {
+        filtroActivo = 'todas';
+        renderizarTareas();
+        actualizarEstilosFiltros();
+    });
+
+    btnFiltroPendientes.addEventListener('click', function () {
+        filtroActivo = 'pendientes';
+        renderizarTareas();
+        actualizarEstilosFiltros();
+    });
+
+    btnFiltroCompletadas.addEventListener('click', function () {
+        filtroActivo = 'completadas';
+        renderizarTareas();
+        actualizarEstilosFiltros();
+    });
+
 });
 
 /**
@@ -191,6 +215,7 @@ function cargarTareas() {
     }
     // Renderizar las tareas cargadas
     renderizarTareas();
+    actualizarEstilosFiltros();
 }
 
 /**
@@ -222,7 +247,7 @@ function toggleCompletada(id) {
  * @param {number} id - El ID de la tarea a eliminar
  */
 
-function eliinarTarea(id) {
+function eliminarTarea(id) {
     // Buscar la tarea para mostrar su texto en la confirmación
     const tarea = tareas.find(t => t.id === id);
 
@@ -242,4 +267,32 @@ function eliinarTarea(id) {
     // Guardar en localStorage y re-renderizar
     guardarTareas();
     renderizarTareas();
+};
+
+/**
+ * Actualiza los estilos visuales de los botones de filtro
+ * El botón activo se ve destacado
+ */
+
+function actualizarEstilosFiltros() {
+    //Obtener los tres botones
+
+    const btnTodas = document.getElementById('filtroTodas');
+    const btnPendientes = document.getElementById('filtroPendientes');
+    const btnCompletadas = document.getElementById('filtroCompletadas');
+
+    // Remover la clase 'active' de todos (reset)
+    btnTodas.classList.remove('active');
+    btnPendientes.classList.remove('active');
+    btnCompletadas.classList.remove('active');
+
+    // Agregar 'active' al botón correspondiente
+
+    if (filtroActivo === 'todas') {
+        btnTodas.classList.add('active');
+    } else if (filtroActivo === 'pendientes') {
+        btnPendientes.classList.add('active');
+    } else if (filtroActivo === 'completadas') {
+        btnCompletadas.classList.add('active');
+    }
 }
