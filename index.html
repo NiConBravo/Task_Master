@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
@@ -17,54 +17,94 @@
     <!--Navbar-->
     <nav class="navbar navbar-dark bg-dark">
         <div class="container-fluid">
-            <span class="navbar-brand mb-0 h1"> 📝 TaskMaster - Gestor de Tareas
-            </span>
+            <span class="navbar-brand mb-0 h1">📝 TaskMaster - Gestor de Tareas</span>
         </div>
     </nav>
+
     <!--Contenedor principal-->
-    <div class="container-mt-4">
+    <div class="container mt-4">
+
         <!--Sección de agregar nueva tarea-->
         <div class="card shadow-sm mb-4">
             <div class="card-body">
                 <div class="row g-2">
                     <!--Input de texto-->
-                    <div class="col-md-9">
+                    <div class="col-md-6">
                         <input type="text" id="inputNuevaTarea" class="form-control"
                             placeholder="Escribe una nueva tarea...">
-
                     </div>
+
+                    <!--Selector de categoría - NUEVO-->
                     <div class="col-md-3">
-                        <button id="btnAgregar" class="btn btn-primary w-100"> ➕ Agregar
+                        <select id="selectCategoria" class="form-select">
+                            <option value="personal">🏠 Personal</option>
+                            <option value="trabajo">💼 Trabajo</option>
+                            <option value="estudio">📚 Estudio</option>
+                        </select>
+                    </div>
+
+                    <!--Botón de agregar-->
+                    <div class="col-md-3">
+                        <button id="btnAgregar" class="btn btn-primary w-100">
+                            ➕ Agregar
                         </button>
                     </div>
                 </div>
             </div>
         </div>
+
         <!-- Sección de estadísticas y filtros -->
-        <div class="d-flex justif-content-between align-items-center mb-3">
-            <!-- Contadr de tareas-->
-            <div>
-                <h5 class="mb-0">
-                    📊 <span id="contadorPendientes">0</span> pendientes de <span id="contadorTotales">0</span> totaless
-                </h5>
+        <div class="stats-filters-container">
+            <div class="d-flex justify-content-between align-items-center">
+                <!-- Contador de tareas -->
+                <div>
+                    <h5 class="mb-0">
+                        <span id="contadorPendientes">0</span> pendientes de
+                        <span id="contadorTotales">0</span> totales
+                    </h5>
+                </div>
+
+                <!-- Botones de filtro -->
+                <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-outline-secondary btn-sm" id="filtroTodas">
+                        Todas
+                    </button>
+                    <button type="button" class="btn btn-outline-secondary btn-sm" id="filtroPendientes">
+                        Pendientes
+                    </button>
+                    <button type="button" class="btn btn-outline-secondary btn-sm" id="filtroCompletadas">
+                        Completadas
+                    </button>
+                </div>
+            </div>
+            <!-- Botones de filtro por categoría - NUEVO -->
+            <div class="btn-group mt-2" role="group">
+                <button type="button" class="btn btn-outline-info btn-sm" id="filtroPersonal">
+                    🏠 Personal
+                </button>
+                <button type="button" class="btn btn-outline-danger btn-sm" id="filtroTrabajo">
+                    💼 Trabajo
+                </button>
+                <button type="button" class="btn btn-outline-success btn-sm" id="filtroEstudio">
+                    📚 Estudio
+                </button>
             </div>
         </div>
-        <!--Botones de filtro-->
-        <div class="btn-group" role="group">
-            <button type="button" class="btn btn-outline-secondary btn-sm" id="filtroTodas">Todas</button>
-            <button type="button" class="btn btn-outline-secondary btn-sm" id="filtroPendientes">Pendientes</button>
-            <button type="button" class="btn btn-outline-secondary btn-sm" id="filtroCompletadas">Completadas</button>
-        </div>
-        <!--Lista de tareas-->
+
+        <!--Lista de tareas (vacía por ahora)-->
         <div id="contenedorTareas">
             <!--JavaScript insertará dinámicamente las tareas aquí-->
             <p class="text-center text-muted mt-5">
                 No hay tareas todavía. ¡Agrega tu primera tarea arriba! 🚀
             </p>
         </div>
-    </div>
+
+    </div> <!-- Fin del container principal -->
+
     <!-- Bootstrap JS (para componentes interactivos) -->
     <script src="/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Tu JavaScript -->
     <script src="app.js"></script>
 </body>
 
